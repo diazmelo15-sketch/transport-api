@@ -27,17 +27,13 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/orders")
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @Tag(name = "Orders", description = "Gestión de órdenes de transporte")
 public class OrderController {
 
 	
 	   private final OrderService orderService;
 	   
-	   public OrderController(OrderService orderService) {//por el momento se hace manual, ya que no esta instalado lombok
-	        this.orderService = orderService;
-	    }
-
 	   @PostMapping
 	   @Operation(summary = "Crear una nueva orden")
 	    public ResponseEntity<OrderResponse> create(
