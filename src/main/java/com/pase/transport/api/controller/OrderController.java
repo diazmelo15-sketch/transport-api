@@ -20,12 +20,15 @@ import com.pase.transport.api.dto.UpdateOrderStatusRequest;
 import com.pase.transport.api.enums.OrderStatus;
 import com.pase.transport.api.service.OrderService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/orders")
 //@RequiredArgsConstructor
+@Tag(name = "Orders", description = "Gestión de órdenes de transporte")
 public class OrderController {
 
 	
@@ -36,6 +39,7 @@ public class OrderController {
 	    }
 
 	   @PostMapping
+	   @Operation(summary = "Crear una nueva orden")
 	    public ResponseEntity<OrderResponse> create(
 	            @Valid
 	            @RequestBody CreateOrderRequest request) {
@@ -45,6 +49,7 @@ public class OrderController {
 	    }
 
 	    @GetMapping("/{id}")
+	    @Operation(summary = "Consultar orden por ID")
 	    public ResponseEntity<OrderResponse> findById(
 	            @PathVariable UUID id) {
 
@@ -53,6 +58,7 @@ public class OrderController {
 	    }
 
 	    @PatchMapping("/{id}/status")
+	    @Operation(summary = "Cambiar status de orden por ID")
 	    public ResponseEntity<OrderResponse> updateStatus(
 	            @PathVariable UUID id,
 	            @RequestBody UpdateOrderStatusRequest request) {
@@ -64,6 +70,7 @@ public class OrderController {
 	    }
 
 	    @GetMapping
+	    @Operation(summary = "Consultar ordenes por filtros")
 	    public ResponseEntity<List<OrderResponse>> findAll(
 	            @RequestParam(required = false)
 	            OrderStatus status,
