@@ -6,4 +6,8 @@ API REST para la gestión de órdenes de transporte.
 - Java 17
 - Spring Boot 3
 - Spring Data JPA
-- MySQL - Maven
+- Spring Securty
+- JWT
+- MySQL
+- Swagger/OpenAPI
+- Maven
