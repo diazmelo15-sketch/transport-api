@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pase.transport.api.dto.CreateOrderRequest;
 import com.pase.transport.api.dto.OrderResponse;
 import com.pase.transport.api.dto.UpdateOrderStatusRequest;
-import com.pase.transport.api.enums.OrderStatus;
 import com.pase.transport.api.service.OrderService;
+import com.pase.transport.api.util.OrderStatus;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

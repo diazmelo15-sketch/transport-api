@@ -2,7 +2,6 @@ package com.pase.transport.api.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.data.jpa.domain.Specification;
@@ -11,12 +10,12 @@ import org.springframework.stereotype.Service;
 import com.pase.transport.api.dto.CreateOrderRequest;
 import com.pase.transport.api.dto.OrderResponse;
 import com.pase.transport.api.entity.Order;
-import com.pase.transport.api.enums.OrderStatus;
-import com.pase.transport.api.exception.BusinessException;
+import com.pase.transport.api.util.OrderSpecification;
+import com.pase.transport.api.util.OrderStatus;
+import com.pase.transport.api.util.StatusTransitionValidator;
 import com.pase.transport.api.exception.ResourceNotFoundException;
 import com.pase.transport.api.mapper.OrderMapper;
 import com.pase.transport.api.repository.OrderRepository;
-import com.pase.transport.api.specification.OrderSpecification;
 
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -91,7 +90,7 @@ public class OrderServiceImpl implements OrderService{
 
 	        OrderStatus previousStatus = order.getStatus();
 
-	        validateTransition(previousStatus, newStatus);
+	        StatusTransitionValidator.validateTransition(previousStatus, newStatus);
 
 	        order.setStatus(newStatus);
 	        order.setUpdatedAt(LocalDateTime.now());
@@ -153,39 +152,6 @@ public class OrderServiceImpl implements OrderService{
 	        }
 	    }
 
-	    private void validateTransition(
-	            OrderStatus current,
-	            OrderStatus next) {
-
-	        Map<OrderStatus, List<OrderStatus>> transitions =
-	                Map.of(
-	                        OrderStatus.CREATED,
-	                        List.of(
-	                                OrderStatus.IN_TRANSIT,
-	                                OrderStatus.CANCELLED),
-
-	                        OrderStatus.IN_TRANSIT,
-	                        List.of(
-	                                OrderStatus.DELIVERED,
-	                                OrderStatus.CANCELLED),
-
-	                        OrderStatus.DELIVERED,
-	                        List.of(),
-
-	                        OrderStatus.CANCELLED,
-	                        List.of());
-
-	        if (!transitions.get(current).contains(next)) {
-
-	            log.warn(
-	                    "Transición inválida {} -> {}",
-	                    current,
-	                    next);
-
-	            throw new BusinessException(
-	                    "Invalid status transition from "
-	                            + current + " to " + next);
-	        }
-	        }
+		
 
 }

@@ -5,7 +5,7 @@ import java.util.UUID;
 
 import com.pase.transport.api.dto.CreateOrderRequest;
 import com.pase.transport.api.dto.OrderResponse;
-import com.pase.transport.api.enums.OrderStatus;
+import com.pase.transport.api.util.OrderStatus;
 
 public interface OrderService {
 

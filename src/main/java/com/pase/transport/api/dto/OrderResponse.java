@@ -3,7 +3,7 @@ package com.pase.transport.api.dto;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.pase.transport.api.enums.OrderStatus;
+import com.pase.transport.api.util.OrderStatus;
 
 public record OrderResponse(
 			UUID id,

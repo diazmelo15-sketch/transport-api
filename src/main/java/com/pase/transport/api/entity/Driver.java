@@ -30,6 +30,7 @@ public class Driver {
 
 	private String licenseNumber;
 
-	private Boolean active;
+	 @Builder.Default
+	 private boolean active = true;
 
 }

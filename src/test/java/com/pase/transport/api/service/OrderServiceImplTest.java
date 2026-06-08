@@ -21,11 +21,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.pase.transport.api.dto.CreateOrderRequest;
 import com.pase.transport.api.dto.OrderResponse;
 import com.pase.transport.api.entity.Order;
-import com.pase.transport.api.enums.OrderStatus;
+import com.pase.transport.api.util.OrderStatus;
 import com.pase.transport.api.exception.ResourceNotFoundException;
 import com.pase.transport.api.mapper.OrderMapper;
 import com.pase.transport.api.repository.OrderRepository;
-import com.pase.transport.api.service.OrderServiceImpl;
 
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceImplTest {
@@ -57,6 +56,7 @@ public class OrderServiceImplTest {
 	                .build();
 	    }
 
+	    //Verifica que una orden pueda crearse correctamente.
 	    @Test
 	    void shouldCreateOrder() {
 
@@ -93,6 +93,7 @@ public class OrderServiceImplTest {
 	                .save(any(Order.class));
 	    }
 
+	    //Verifica que una orden existente pueda consultarse.
 	    @Test
 	    void shouldFindOrderById() {
 
@@ -118,6 +119,7 @@ public class OrderServiceImplTest {
 	        assertEquals(orderId, result.id());
 	    }
 
+	    //Valida el escenario negativo.
 	    @Test
 	    void shouldThrowExceptionWhenOrderNotFound() {
 
@@ -129,6 +131,7 @@ public class OrderServiceImplTest {
 	                () -> orderService.findById(orderId));
 	    }
 
+	    //Verifica la actualización del estado de una orden.
 	    @Test
 	    void shouldUpdateStatus() {
 

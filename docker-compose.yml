@@ -8,7 +8,7 @@ services:
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: transport_db
     ports:
-      - "3306:3306"
+      - "3306:3307"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -24,6 +24,6 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/transport_db
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3307/transport_db
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root123

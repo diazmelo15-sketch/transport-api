@@ -1,4 +1,4 @@
-package com.pase.transport.api.enums;
+package com.pase.transport.api.util;
 
 public enum OrderStatus {
 

@@ -1,6 +1,6 @@
 package com.pase.transport.api.dto;
 
-import com.pase.transport.api.enums.OrderStatus;
+import com.pase.transport.api.util.OrderStatus;
 
 import jakarta.validation.constraints.NotNull;
 
