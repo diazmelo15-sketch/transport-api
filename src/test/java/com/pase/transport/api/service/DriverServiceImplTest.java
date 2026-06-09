@@ -61,6 +61,9 @@ public class DriverServiceImplTest {
 	                        driver.getLicenseNumber()
 	                );
 
+	        when(driverMapper.toEntity(request))
+	                .thenReturn(driver);
+
 	        when(driverRepository.save(any(Driver.class)))
 	                .thenReturn(driver);
 
@@ -73,6 +76,7 @@ public class DriverServiceImplTest {
 	        assertEquals("Juan Perez", result.name());
 	        assertTrue(result.active());
 
+	        verify(driverMapper).toEntity(request);
 	        verify(driverRepository).save(any(Driver.class));
 	        verify(driverMapper).toResponse(driver);
 	    }
