@@ -1,5 +1,6 @@
 package com.pase.transport.api.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,5 +21,7 @@ public interface OrderService {
 	    List<OrderResponse> findAll(
 	            OrderStatus status,
 	            String origin,
-	            String destination);
+	            String destination,
+	            LocalDate startDate,
+	            LocalDate endDate);
 }

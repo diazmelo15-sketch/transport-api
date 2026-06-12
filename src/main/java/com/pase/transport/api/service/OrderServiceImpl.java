@@ -1,5 +1,6 @@
 package com.pase.transport.api.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -111,21 +112,27 @@ public class OrderServiceImpl implements OrderService{
 	    public List<OrderResponse> findAll(
 	            OrderStatus status,
 	            String origin,
-	            String destination) {
+	            String destination,
+	            LocalDate startDate,
+	            LocalDate endDate) {
 
 	        try {
 
 	            log.info(
-	                    "[FIND_ALL_ORDERS] Buscando órdenes status={} origin={} destination={}",
+	                    "[FIND_ALL_ORDERS] Buscando órdenes status={} origin={} destination={} startDate={} endDate={}",
 	                    status,
 	                    origin,
-	                    destination);
+	                    destination,
+	                    startDate,
+	                    endDate);
 
 	            Specification<Order> specification =
 	                    OrderSpecification.filter(
 	                            status,
 	                            origin,
-	                            destination);
+	                            destination,
+	                            startDate,
+	                            endDate);
 
 	            List<OrderResponse> orders =
 	                    orderRepository.findAll(specification)
@@ -142,10 +149,12 @@ public class OrderServiceImpl implements OrderService{
 	        } catch (Exception ex) {
 
 	            log.error(
-	                    "[FIND_ALL_ORDERS] Error al consultar órdenes status={} origin={} destination={}",
+	                    "[FIND_ALL_ORDERS] Error al consultar órdenes status={} origin={} destination={} startDate={} endDate={}",
 	                    status,
 	                    origin,
 	                    destination,
+	                    startDate,
+	                    endDate,
 	                    ex);
 
 	            throw ex;
