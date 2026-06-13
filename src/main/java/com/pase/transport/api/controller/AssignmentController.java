@@ -18,6 +18,7 @@ import com.pase.transport.api.service.AssignmentService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -30,7 +31,7 @@ public class AssignmentController {
 
 	@PostMapping
 	@Operation(summary = "Asignar un conductor a una orden")
-	public ResponseEntity<AssignmentResponse> assignDriver(@RequestBody AssignOrderRequest request) {
+	public ResponseEntity<AssignmentResponse> assignDriver(@Valid @RequestBody AssignOrderRequest request) {
 
 		return ResponseEntity.ok(service.assignDriver(request));
 	}

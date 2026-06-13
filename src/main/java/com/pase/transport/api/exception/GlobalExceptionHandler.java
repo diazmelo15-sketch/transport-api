@@ -90,4 +90,23 @@ public class GlobalExceptionHandler {
 	            HttpStatus.INTERNAL_SERVER_ERROR)
 	            .body(error);
 	}
+	
+	@ExceptionHandler(FileStorageException.class)
+	public ResponseEntity<ErrorResponse> handleFileStorageException(
+	        FileStorageException ex,
+	        HttpServletRequest request) {
+
+	    log.error("Error almacenando archivo", ex);
+
+	    ErrorResponse error = new ErrorResponse(
+	            LocalDateTime.now(),
+	            HttpStatus.INTERNAL_SERVER_ERROR.value(),
+	            "FILE_STORAGE_ERROR",
+	            ex.getMessage(),
+	            request.getRequestURI());
+
+	    return ResponseEntity.status(
+	            HttpStatus.INTERNAL_SERVER_ERROR)
+	            .body(error);
+	}
 }

@@ -16,6 +16,7 @@ import com.pase.transport.api.service.DriverService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -28,7 +29,7 @@ public class DriverController {
 
 	@PostMapping
 	@Operation(summary = "Crear un nuevo conductor")
-	public ResponseEntity<DriverResponse> create(@RequestBody CreateDriverRequest driver) {
+	public ResponseEntity<DriverResponse> create(@Valid @RequestBody CreateDriverRequest driver) {
 		return ResponseEntity.ok(service.create(driver));
 	}
 

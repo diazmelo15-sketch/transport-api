@@ -1,8 +1,10 @@
 package com.pase.transport.api.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,57 +33,43 @@ import lombok.RequiredArgsConstructor;
 @Tag(name = "Orders", description = "Gestión de órdenes de transporte")
 public class OrderController {
 
-	
-	   private final OrderService orderService;
-	   
-	   @PostMapping
-	   @Operation(summary = "Crear una nueva orden")
-	    public ResponseEntity<OrderResponse> create(
-	            @Valid
-	            @RequestBody CreateOrderRequest request) {
+	private final OrderService orderService;
 
-	        return ResponseEntity.status(HttpStatus.CREATED)
-	                .body(orderService.create(request));
-	    }
+	@PostMapping
+	@Operation(summary = "Crear una nueva orden")
+	public ResponseEntity<OrderResponse> create(@Valid @RequestBody CreateOrderRequest request) {
 
-	    @GetMapping("/{id}")
-	    @Operation(summary = "Consultar orden por ID")
-	    public ResponseEntity<OrderResponse> findById(
-	            @PathVariable UUID id) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(orderService.create(request));
+	}
 
-	        return ResponseEntity.ok(
-	                orderService.findById(id));
-	    }
+	@GetMapping("/{id}")
+	@Operation(summary = "Consultar orden por ID")
+	public ResponseEntity<OrderResponse> findById(@PathVariable UUID id) {
 
-	    @PatchMapping("/{id}/status")
-	    @Operation(summary = "Cambiar status de orden por ID")
-	    public ResponseEntity<OrderResponse> updateStatus(
-	            @PathVariable UUID id,
-	            @RequestBody UpdateOrderStatusRequest request) {
+		return ResponseEntity.ok(orderService.findById(id));
+	}
 
-	        return ResponseEntity.ok(
-	                orderService.updateStatus(
-	                        id,
-	                        request.status()));
-	    }
+	@PatchMapping("/{id}/status")
+	@Operation(summary = "Cambiar status de orden por ID")
+	public ResponseEntity<OrderResponse> updateStatus(@Valid @PathVariable UUID id,
+			@RequestBody UpdateOrderStatusRequest request) {
 
-	    @GetMapping
-	    @Operation(summary = "Consultar ordenes por filtros")
-	    public ResponseEntity<List<OrderResponse>> findAll(
-	            @RequestParam(required = false)
-	            OrderStatus status,
+		return ResponseEntity.ok(orderService.updateStatus(id, request.status()));
+	}
 
-	            @RequestParam(required = false)
-	            String origin,
+	@GetMapping
+	@Operation(summary = "Consultar ordenes por filtros")
+	public ResponseEntity<List<OrderResponse>> findAll(@RequestParam(required = false) OrderStatus status,
 
-	            @RequestParam(required = false)
-	            String destination) {
+			@RequestParam(required = false) String origin,
 
-	        return ResponseEntity.ok(
-	                orderService.findAll(
-	                        status,
-	                        origin,
-	                        destination));
-	    }
-	    
+			@RequestParam(required = false) String destination,
+
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+
+			@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+
+		return ResponseEntity.ok(orderService.findAll(status, origin, destination, startDate, endDate));
+	}
+
 }
